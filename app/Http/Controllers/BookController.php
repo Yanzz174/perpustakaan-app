@@ -12,7 +12,8 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::with('category')->latest()->get();
-        return view('books.index', compact('books'));
+        $categories = Category::all();
+        return view('books.index', compact('books', 'categories'));
     }
 
     public function create()

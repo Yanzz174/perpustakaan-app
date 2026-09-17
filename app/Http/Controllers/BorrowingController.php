@@ -16,7 +16,9 @@ class BorrowingController extends Controller
     public function index()
     {
         $borrowings = Borrowing::with(['member', 'user', 'details.book'])->latest()->get();
-        return view('borrowings.index', compact('borrowings'));
+        $members = Member::all();
+        $books = Book::where('available_stock', '>', 0)->get();
+        return view('borrowings.index', compact('borrowings', 'members', 'books'));
     }
 
     public function create()

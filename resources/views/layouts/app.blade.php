@@ -7,6 +7,13 @@
 
         <title>{{ $siteSetting->site_name ?? 'Perpustakaan Digital' }}</title>
 
+        <!-- Favicon Dinamis -->
+        @if(isset($siteSetting) && $siteSetting->site_logo)
+            <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $siteSetting->site_logo) }}">
+        @else
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+        @endif
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

@@ -18,7 +18,8 @@
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col justify-between font-sans antialiased transition-colors duration-300"
       x-data="{
           isDark: localStorage.getItem('theme') === 'dark',
-          logoClicks: 0
+          logoClicks: 0,
+          openCheckModal: false
       }"
       @keydown.window.ctrl.shift.a.prevent="window.location.href = '{{ route('login') }}'">
 
@@ -44,10 +45,13 @@
                         Katalog Buku
                     </a>
 
-                    <a href="{{ route('catalog.check') }}" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 {{ request()->routeIs('catalog.check') ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60' : 'text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
+                    <!-- Tombol Cek NISN Mengaktifkan Pop-Up Modal -->
+                    <button @click="openCheckModal = true"
+                            type="button"
+                            class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 {{ request()->routeIs('catalog.check') ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60' : 'text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                         Cek NISN
-                    </a>
+                    </button>
 
                     <!-- Switcher Mode Gelap/Terang -->
                     <button @click="isDark = !isDark; if(isDark){ document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark'); } else { document.documentElement.classList.remove('dark'); localStorage.setItem('theme', 'light'); }"
@@ -91,6 +95,51 @@
 
             {{ $slot }}
         </main>
+
+        <!-- Modal Pop-Up Cek NISN Interaktif -->
+        <div x-show="openCheckModal"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50" x-cloak>
+
+            <div @click.away="openCheckModal = false"
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="opacity-0 scale-90 translate-y-4"
+                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200 transform"
+                 x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 scale-90 translate-y-4"
+                 class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-5 border border-slate-200/60 dark:border-slate-700">
+
+                <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700/60 pb-3">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <div class="p-2 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        Cek Status Pinjaman & Denda
+                    </h3>
+                    <button @click="openCheckModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl font-bold transition-colors">&times;</button>
+                </div>
+
+                <form action="{{ route('catalog.check') }}" method="GET" class="space-y-4">
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Masukkan NISN Anda untuk memantau status persetujuan dan riwayat peminjaman.</p>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Nomor Induk Siswa Nasional (NISN)</label>
+                        <input type="text" name="nisn" value="{{ request('nisn') }}" placeholder="Masukkan NISN Siswa..." class="w-full text-sm border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 transition-all" required>
+                    </div>
+
+                    <div class="flex justify-end gap-2 pt-2">
+                        <button type="button" @click="openCheckModal = false" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 active:scale-95 transition-all">Batal</button>
+                        <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-md shadow-indigo-500/20 active:scale-95 transition-all">Cek Data NISN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
