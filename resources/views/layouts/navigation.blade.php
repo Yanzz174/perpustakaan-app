@@ -6,14 +6,8 @@
                 <!-- Logo & Nama Web Dinamis -->
                 <div class="shrink-0 flex items-center gap-3">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 group">
-                        @if(isset($siteSetting) && $siteSetting->site_logo)
-                            <img src="{{ asset('storage/' . $siteSetting->site_logo) }}" class="block h-9 w-auto">
-                        @else
-                            <div class="p-2 bg-indigo-600 text-white rounded-xl shadow-md group-hover:bg-indigo-500 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                            </div>
-                        @endif
-                        <span class="font-bold text-base text-slate-800 dark:text-white tracking-tight">{{ $siteSetting->site_name ?? 'Perpustakaan' }}</span>
+                        <x-application-logo class="block h-9 w-auto" />
+                        <span class="font-bold text-base text-slate-800 dark:text-white tracking-tight">{{ $siteSetting->site_name ?? 'Perpustakaan Digital' }}</span>
                     </a>
                 </div>
 

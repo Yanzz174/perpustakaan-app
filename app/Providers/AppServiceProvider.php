@@ -22,13 +22,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $setting = null;
         if (Schema::hasTable('settings')) {
             $setting = Setting::firstOrCreate([], [
                 'site_name' => 'Perpustakaan Digital',
                 'fine_per_day' => 1000,
                 'max_borrow_days' => 7,
             ]);
-            View::share('siteSetting', $setting);
+        } else {
+            $setting = new Setting([
+                'site_name' => 'Perpustakaan Digital',
+                'fine_per_day' => 1000,
+                'max_borrow_days' => 7,
+            ]);
         }
+        View::share('siteSetting', $setting);
     }
 }
