@@ -31,7 +31,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.2'
           extensions: mbstring, xml, ctype, json, tokenizer, pdo, pdo_mysql, mysql
           coverage: none
 
@@ -43,15 +43,8 @@ jobs:
       - name: Copy .env File
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      - name: Cache Composer packages
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
       - name: Install PHP Dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --no-interaction
 
       - name: Generate Application Key
         run: php artisan key:generate
