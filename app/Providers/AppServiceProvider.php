@@ -21,21 +21,25 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {
-        $setting = null;
+{
+    $setting = new Setting([
+        'site_name' => 'Perpustakaan Digital',
+        'fine_per_day' => 1000,
+        'max_borrow_days' => 7,
+    ]);
+
+    try {
         if (Schema::hasTable('settings')) {
             $setting = Setting::firstOrCreate([], [
                 'site_name' => 'Perpustakaan Digital',
                 'fine_per_day' => 1000,
                 'max_borrow_days' => 7,
             ]);
-        } else {
-            $setting = new Setting([
-                'site_name' => 'Perpustakaan Digital',
-                'fine_per_day' => 1000,
-                'max_borrow_days' => 7,
-            ]);
         }
-        View::share('siteSetting', $setting);
+    } catch (\Throwable $e) {
+        // DB belum siap (misalnya saat composer install / package:discover) — abaikan, pakai default di atas
     }
+
+    View::share('siteSetting', $setting);
+}
 }
