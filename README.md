@@ -82,24 +82,65 @@ npm install
 # 4. Salin file .env dan generate APP_KEY
 cp .env.example .env
 php artisan key:generate
+```
 
+### 4.5 Konfigurasi Database
+
+**Opsi A — SQLite (paling simpel, cocok untuk lokal):**
+```bash
+touch database/database.sqlite
+```
+Lalu pastikan di `.env`:
+```
+DB_CONNECTION=sqlite
+```
+
+**Opsi B — MySQL:**
+Buat database kosong terlebih dahulu (lewat phpMyAdmin/CLI), lalu isi `.env`:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database_kamu
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### Lanjutan
+
+```bash
 # 5. Jalankan migrasi database & seeder
 php artisan migrate --seed
 
 # 6. Buat symlink storage untuk akses file publik (gambar, dsb)
 php artisan storage:link
 
-# 7. Build aset frontend
-npm run build
-
-# 8. Jalankan server lokal
+# 7. Jalankan server lokal
 php artisan serve
+```
 
-# 9. Jalankan Vite dev server (untuk hot-reload)
+Buka terminal **baru** (biarkan `php artisan serve` tetap jalan), lalu:
+
+```bash
+# 8. Jalankan Vite dev server untuk hot-reload (mode development)
 npm run dev
 ```
 
+> 💡 **Catatan:** Step 7 dan 8 dijalankan **bersamaan di dua terminal berbeda**. Untuk build production (bukan development), gunakan `npm run build` sebagai gantinya.
+
 Buka browser dan kunjungi `http://localhost:8000`.
+
+---
+
+## 🔧 Troubleshooting
+
+| Masalah | Solusi |
+|---------|--------|
+| Gambar/file upload muncul **403 Forbidden** | Jalankan `php artisan storage:link` |
+| Error `could not find driver` | Aktifkan ekstensi PHP `pdo_sqlite` / `pdo_mysql` di `php.ini` |
+| CSS/JS tidak muncul setelah `git pull` | Jalankan `npm install && npm run build` (atau `npm run dev`) |
+| Perubahan di `.env` tidak terbaca | Jalankan `php artisan config:clear` |
+| Error saat `migrate` | Pastikan database sudah dibuat & kredensial `.env` benar |
 
 ---
 
@@ -188,6 +229,4 @@ Dibuat oleh **[Moch. Ferdiansyah](https://github.com/Yanzz174)** sebagai bagian 
 
 ---
 
-## ⭐ Star History
-
-Jika Anda menemukan proyek ini bermanfaat, jangan ragu untuk memberikan ⭐ star!
+⭐ Jika Anda menemukan proyek ini bermanfaat, jangan ragu untuk memberikan star!
