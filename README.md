@@ -2,6 +2,12 @@
 
 Aplikasi manajemen perpustakaan berbasis web yang dibangun dengan **Laravel 13** dan **Tailwind CSS**. Fitur lengkap untuk administrasi buku, anggota, dan sistem peminjaman dengan dashboard interaktif.
 
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=black)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![Build Status](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-brightgreen?style=for-the-badge&logo=githubactions)
+
 ---
 
 ## 🎯 Fitur Utama
@@ -64,7 +70,7 @@ Modal interaktif untuk pengajuan peminjaman mandiri oleh siswa/anggota.
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/[USERNAME]/perpustakaan-app.git
+git clone [https://github.com/Yanzz174/perpustakaan-app.git](https://github.com/Yanzz174/perpustakaan-app.git)
 cd perpustakaan-app
 
 # 2. Install dependensi PHP
@@ -77,13 +83,13 @@ npm install
 cp .env.example .env
 php artisan key:generate
 
-# 5. Jalankan migrasi database
-php artisan migrate
+# 5. Jalankan migrasi database & seeder
+php artisan migrate --seed
 
 # 6. Build aset frontend
 npm run build
 
-# 7. Jalankan server pengembangan
+# 7. Jalankan server lokal
 php artisan serve
 
 # 8. Jalankan Vite dev server (untuk hot-reload)
@@ -99,7 +105,7 @@ Buka browser dan kunjungi `http://localhost:8000`.
 ```
 perpustakaan-app/
 ├── app/
-│   ├── Http/Controllers/     # Controller aplikasi
+│   ├── Http/Controllers/     # Controller logika aplikasi
 │   │   ├── PublicCatalogController.php
 │   │   ├── BookController.php
 │   │   ├── MemberController.php
@@ -114,26 +120,23 @@ perpustakaan-app/
 │   │   ├── Category.php
 │   │   ├── BorrowingDetail.php
 │   │   └── Setting.php
-│   └── ...
+│   └── Providers/            # Service Providers (AppServiceProvider safe-boot)
 ├── database/
-│   ├── migrations/           # Migrasi database
-│   └── seeders/              # Seeders
+│   ├── migrations/           # Migrasi skema database
+│   └── seeders/              # Data awal aplikasi
 ├── resources/
-│   ├── views/                # Blade templates
+│   ├── views/                # Blade templates & Alpine Modals
 │   │   ├── welcome.blade.php         # Halaman publik (katalog)
 │   │   ├── dashboard.blade.php       # Dashboard admin
-│   │   ├── check-borrowing.blade.php # Cek peminjaman
-│   │   ├── books/                  # Views manajemen buku
-│   │   ├── members/                # Views manajemen anggota
-│   │   ├── borrowings/             # Views peminjaman
-│   │   ├── categories/             # Views kategori
-│   │   ├── settings/               # Views pengaturan
-│   │   └── layouts/                # Layout utama
-│   └── css/                    # Stylesheet
-├── routes/
-│   └── web.php                 # Routing aplikasi
-├── public/                     # Aset publik
-└── storage/                    # File yang diunggah (cover, logo)
+│   │   ├── check-borrowing.blade.php # Cek peminjaman NISN
+│   │   ├── books/                    # Manajemen buku
+│   │   ├── members/                  # Manajemen anggota
+│   │   ├── borrowings/               # Transaksi peminjaman
+│   │   ├── profile/                  # Pengaturan profil
+│   │   └── layouts/                  # Layout utama (App & Guest)
+├── .github/workflows/        # Konfigurasi CI/CD Pipeline GitHub Actions
+└── routes/
+    └── web.php               # Routing aplikasi
 ```
 
 ---
@@ -161,6 +164,15 @@ perpustakaan-app/
 
 ---
 
+## 🧪 Automated Testing & CI/CD
+
+Aplikasi ini mengintegrasikan **GitHub Actions Workflow** (`.github/workflows/ci.yml`) untuk memastikan kualitas kode dan stabilitas aplikasi:
+- Pengujian otomatis pada setiap *push* & *pull request*.
+- Service container MySQL 8.0 terisolasi untuk tes migrasi database.
+- Verifikasi kompilasi aset Vite dan tes otomatis (`php artisan test`).
+
+---
+
 ## 📝 Lisensi
 
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
@@ -169,7 +181,7 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 ## 👤 Penulis
 
-Dibuat sebagai bagian dari portofolio pengembangan web.
+Dibuat oleh **[Moch. Ferdiansyah](https://github.com/Yanzz174)** sebagai bagian dari portofolio pengembangan aplikasi web modern.
 
 ---
 
