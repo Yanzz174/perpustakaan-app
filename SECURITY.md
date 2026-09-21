@@ -8,14 +8,16 @@
 
 ## Reporting a Security Vulnerability
 
-Please report security issues via email at **taylor@laravel.com** or through the [Laravel security page](https://laravel.com/security).
+Jika Anda menemukan celah keamanan pada project ini, silakan laporkan melalui email **zexian84@gmail.com** atau buka [issue privat/security advisory](https://github.com/Yanzz174/perpustakaan-app/security/advisories) di GitHub.
+
+Mohon **jangan** mempublikasikan celah keamanan secara terbuka (public issue) sebelum ada perbaikan.
 
 ## What to Expect After Reporting
 
-1. **Acknowledgment** - You will receive an acknowledgment within 48 hours
-2. **Triage** - The vulnerability will be triaged within 5 business days
-3. **Fix** - A patch will be released as soon as possible
-4. **Credit** - Security researchers will be credited in the release notes (unless requested otherwise)
+1. **Acknowledgment** — Laporan akan direspon secepat mungkin
+2. **Triage** — Vulnerability akan ditinjau dan divalidasi
+3. **Fix** — Patch akan dirilis setelah perbaikan siap
+4. **Credit** — Peneliti keamanan akan dikreditkan pada release notes (kecuali diminta sebaliknya)
 
 ## Security Best Practices for This Project
 
