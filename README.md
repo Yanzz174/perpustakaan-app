@@ -132,6 +132,18 @@ Buka browser dan kunjungi `http://localhost:8000`.
 
 ---
 
+## 🔑 Akun Default
+
+Setelah menjalankan `php artisan migrate --seed`, akun admin berikut otomatis dibuat melalui `DatabaseSeeder.php`:
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin/Petugas | `admin@perpustakaan.com` | `password123` |
+
+> ⚠️ **Peringatan Keamanan:** Kredensial di atas hanya untuk keperluan **development/testing lokal**. Jika aplikasi ini di-deploy ke server production dengan data sungguhan, **wajib ganti password default** ini terlebih dahulu — baik langsung di `database/seeders/DatabaseSeeder.php` sebelum migrate, atau melalui halaman ubah password setelah login pertama kali.
+
+---
+
 ## 🔧 Troubleshooting
 
 | Masalah | Solusi |
