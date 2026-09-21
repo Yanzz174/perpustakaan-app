@@ -86,13 +86,16 @@ php artisan key:generate
 # 5. Jalankan migrasi database & seeder
 php artisan migrate --seed
 
-# 6. Build aset frontend
+# 6. Buat symlink storage untuk akses file publik (gambar, dsb)
+php artisan storage:link
+
+# 7. Build aset frontend
 npm run build
 
-# 7. Jalankan server lokal
+# 8. Jalankan server lokal
 php artisan serve
 
-# 8. Jalankan Vite dev server (untuk hot-reload)
+# 9. Jalankan Vite dev server (untuk hot-reload)
 npm run dev
 ```
 
