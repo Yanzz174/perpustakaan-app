@@ -70,7 +70,7 @@ Modal interaktif untuk pengajuan peminjaman mandiri oleh siswa/anggota.
 
 ```bash
 # 1. Clone repository
-git clone [https://github.com/Yanzz174/perpustakaan-app.git](https://github.com/Yanzz174/perpustakaan-app.git)
+git clone https://github.com/Yanzz174/perpustakaan-app.git
 cd perpustakaan-app
 
 # 2. Install dependensi PHP
